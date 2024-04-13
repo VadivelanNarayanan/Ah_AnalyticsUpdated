@@ -85,59 +85,7 @@ class _SalesState extends State<Sales> {
                                 height: 0.2,
                                 color: Colors.black,
                               ),
-                              //  Container(
-                              //   height: 400,
-                              //   child:ListView.builder(
-                              //     itemCount: journeysalesdata.length,
-                              //     shrinkWrap: true,
-                              //     scrollDirection: Axis.vertical,
-                              //     itemBuilder: (BuildContext context, int index) { 
-                              //       var key = journeysalesdata['DFU'].keys.elementAt(index);
-                              //       var value = journeysalesdata['DFU'][key];
-                              //       return  Padding(
-                              //         padding: EdgeInsets.all(5),
-                              //         child: Container(
-                              //           decoration:BoxDecoration(
-                              //             borderRadius: BorderRadius.circular(5), 
-                              //             color: Colors.white
-                              //           ),
-                              //           padding: EdgeInsets.all(10),
-                              //           child:Row(
-                              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //             children: [
-                              //               Expanded(
-                              //                 child:  Text(
-                              //                   "$key",
-                              //                   style: TextStyle(
-                              //                     fontSize: 18,
-                              //                     fontWeight: FontWeight.bold,
-                              //                   )
-                              //                 ),
-                              //                ),
-                              //               Text(
-                              //                 '$value',
-                              //                 style: TextStyle(
-                              //                   fontSize: 18,
-                              //                   fontWeight: FontWeight.w500,
-                              //                 )
-                              //               )
-                              //             ],
-                              //           ),
-                              //         ),
-                              //       );
-                              //       // ):Text(
-                              //       //   'Feature\n Not Done',
-                              //       //   textAlign: TextAlign.center,
-                              //       //   style: TextStyle(
-                              //       //     fontSize:20,
-                              //       //     fontWeight: FontWeight.w500,
-                              //       //     color:Colors.red
-                              //       //   )
-                              //       // );
-                              //     },
-                              //   )
-                              // )
-                             Container(
+                              Container(
                                 height: 400,
                                 child: Scrollbar(
                                   thickness: 6.0,

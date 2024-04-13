@@ -17,8 +17,6 @@ class cancellation extends StatefulWidget {
 
 class _cancellationState extends State<cancellation> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // late DateTime selecteddate! =DateTime.now();
   DateTime? selecteddate;
   List salesData=[];
 
@@ -26,7 +24,6 @@ class _cancellationState extends State<cancellation> {
   @override
   void initState() {
     super.initState();
-    // selecteddate! = DateTime.now();
     fetchDataForSelectedMonth();
   } 
 
@@ -37,28 +34,6 @@ class _cancellationState extends State<cancellation> {
       fetchDataForSelectedMonth();
     }
   }
-
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: selecteddate!,
-  //     firstDate: DateTime(2012),
-  //     lastDate:DateTime.now(),
-  //     initialDatePickerMode: DatePickerMode.year,
-  //   );
-  //   if (picked != null && picked != selecteddate!) {
-  //     setState(() {
-  //       selecteddate! = picked;
-  //     });
-  //     fetchDataForSelectedMonth();
-  //   } else {
-  //     setState(() {
-  //       selecteddate! = DateTime.now();
-  //     });
-  //     fetchDataForSelectedMonth();
-  //   }
-  // }
-
   Future<void> fetchDataForSelectedMonth() async {
   salesData.clear();
   selecteddate=widget.selectedDate;
@@ -74,34 +49,9 @@ class _cancellationState extends State<cancellation> {
   
   @override
   Widget build(BuildContext context) {
-    // String formattedMonth =DateFormat('MMMM yyyy').format(selecteddate!); 
     return Column(
       children: [
         SizedBox(height: 10,),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: [
-        //     ElevatedButton(
-        //       onPressed: () => _selectDate(context),
-        //       style: ElevatedButton.styleFrom(
-        //         primary:  Color(0xfff0dbaf), 
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(10.0),
-        //         ),
-        //       ),
-        //       child: Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 3,vertical: 4),
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.end,
-        //           children: [
-        //             Text('$formattedMonth'),
-        //             Icon(Icons.arrow_drop_down_rounded)
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
         Stack(
           children: [
             Container(
@@ -313,10 +263,7 @@ class _cancellationState extends State<cancellation> {
             )
           ],
         ),
-
       ],
-
     );
-    
   }
 }

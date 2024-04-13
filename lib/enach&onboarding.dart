@@ -33,31 +33,12 @@ class _EnachState extends State<Enach> {
   void didUpdateWidget(covariant Enach oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedDate != oldWidget.selectedDate) {
-      fetchDataForSelectedMonth();
+     setState(() {
+         fetchDataForSelectedMonth();
+     });
     }
   }
  
-
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: _selectedDate,
-  //     firstDate: DateTime(2012),
-  //     lastDate:DateTime.now(),
-  //     initialDatePickerMode: DatePickerMode.year,
-  //   );
-  //   if (picked != null && picked != _selectedDate) {
-  //     setState(() {
-  //       _selectedDate = picked;
-  //     });
-  //     fetchDataForSelectedMonth();
-  //   } else {
-  //     setState(() {
-  //       _selectedDate = DateTime.now();
-  //     });
-  //     fetchDataForSelectedMonth();
-  //   }
-  // }
 
   Future<void> fetchDataForSelectedMonth() async {
     watsonData.clear();

@@ -1,9 +1,11 @@
 import 'package:ah_analytics/cancellation.dart';
 import 'package:ah_analytics/enach&onboarding.dart';
+import 'package:ah_analytics/login.dart';
 import 'package:ah_analytics/pipeline.dart';
 import 'package:ah_analytics/revenue.dart';
 import 'package:ah_analytics/sales.dart';
 import 'package:ah_analytics/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -19,6 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   DateTime _selectedDate = DateTime.now();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -49,16 +52,22 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     String formattedMonth =DateFormat('MMMM yyyy').format(_selectedDate); 
     return Scaffold(
+      key: scaffoldKey, 
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             toolbarHeight: kToolbarHeight + 20,
             pinned: false,
             floating: false,
-            leading: Container(
-              height:10,width: 10,
-              padding: EdgeInsets.fromLTRB(20,10,8,10 ),
-              child: Image.asset("assets/logo/logo.jpg",),
+            leading: GestureDetector(
+              onTap: (){
+                scaffoldKey.currentState?.openDrawer();
+              },
+              child: Container(
+                height:10,width: 10,
+                padding: EdgeInsets.fromLTRB(20,10,8,10 ),
+                child: Image.asset("assets/logo/logo.jpg",),
+              ),
             ),
             leadingWidth: 84,
             titleSpacing: 0,
@@ -104,6 +113,34 @@ class _HomeState extends State<Home> {
             ),   
           ),
         ],
+      ),
+      drawer:Drawer(
+        child: Column(
+          children: [
+            Container(
+              height:100,
+              width: 100,
+              padding: EdgeInsets.fromLTRB(20,10,8,10 ),
+              child: Image.asset("assets/logo/logo.jpg",),
+            ),
+            Text("data"),
+            Expanded(
+              child: SizedBox(),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
+              onTap: () async {
+                try {
+                  await FirebaseAuth.instance.signOut();
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+                } catch (e) {
+                  print("Error signing out: $e");
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

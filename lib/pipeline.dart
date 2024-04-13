@@ -1,8 +1,10 @@
+import 'package:ah_analytics/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -19,6 +21,7 @@ class Pipeline extends StatefulWidget {
 class _PipelineState extends State<Pipeline> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List pipelineData = [];
+  List favourites = [];
   List leads = [];
   bool isLoading = true;
 
@@ -32,13 +35,21 @@ class _PipelineState extends State<Pipeline> {
     firestore.collection("pipelinedata").orderBy("convertedcount",descending: true).snapshots().listen((pipelineDatadocs) {
       if (pipelineDatadocs.docs.isNotEmpty) {
         var list = [];
+        var fav=[];
         for (var i = 0; i < pipelineDatadocs.docs.length; i++) {
-          list.add(pipelineDatadocs.docs[i].data());
+          if(pipelineDatadocs.docs[i].data()['category'] == "favourites"){
+            fav.add(pipelineDatadocs.docs[i].data());
+            print("fav $fav");
+          }else{
+           list.add(pipelineDatadocs.docs[i].data());
+          }
         }
         setState(() {
           pipelineData = list;
+          favourites=fav;
           isLoading = false; 
           print("pipelineData $pipelineData");
+          print("favourites $favourites");
         });
       }
     });
@@ -78,7 +89,7 @@ class _PipelineState extends State<Pipeline> {
               leads.isNotEmpty ?
                leads[0]['uncontactedleads'] !=null ?formatCurrency(leads[0]['uncontactedleads']).toString() :'Feature\nNot Done'
               :"0",
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.center,                    
               style: TextStyle(
                 fontSize:leads.isNotEmpty ?
                   leads[0]['uncontactedleads'] !=null ?20:15
@@ -101,121 +112,42 @@ class _PipelineState extends State<Pipeline> {
             child:isLoading? CircularProgressIndicator() : Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                    color: Color(0xffdc8686),
-                  ),
-                  child: Padding(
-                    padding:EdgeInsets.symmetric(horizontal: 20, vertical: 3),
-                    child: Text(
-                      " HOT PIPELINES",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20,right: 20,top: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(0),
-                    color: Colors.white,
-                  ),
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Pipeline Name",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        "Number Of Leads",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height:MediaQuery.of(context).size.height / 2.2,
-                  child:Scrollbar(
-                    thickness: 6.0,
-                    child:ListView.builder(
-                      itemCount: pipelineData.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(0),
-                            color: Colors.white,
-                          ),
-                          padding: EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                             index <5 ?  Shimmer.fromColors(
-                                baseColor: Colors.yellow[900]!,
-                                highlightColor: Colors.yellow,
-                                child: Container(
-                                  child: Text(
-                                   '${pipelineData[index]['pipelinename']}',
-                                    style: TextStyle(
-                                      color: Colors.yellow[900]!,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                )
-                              ): Expanded(
-                                child: Text(
-                                  '${pipelineData[index]['pipelinename']}',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              index <5 ?  Shimmer.fromColors(
-                                baseColor: Colors.yellow[900]!,
-                                highlightColor: Colors.yellow,
-                                child: Container(
-                                  child: Text(
-                                   '${pipelineData[index]['leadscount']}',
-                                    style: TextStyle(
-                                      color: Colors.yellow[900]!,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                )
-                              ):  Text(
-                                '${pipelineData[index]['leadscount']}',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                  height: MediaQuery.of(context).size.height /1.6, 
+                  child: DefaultTabController(
+                    length: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Color(0xff7ed7c1),
+                          width: MediaQuery.of(context).size.width/1,
+                          child:TabBar(
+                            indicatorColor: Colors.black,
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.black26,
+                            isScrollable: true,
+                            unselectedLabelStyle: GoogleFonts.poppins(fontSize:14),
+                            labelStyle: GoogleFonts.poppins(fontSize: 16),
+                            tabs: [
+                              Tab(text: 'HOT PIPELINES',),
+                              Tab(text: 'FAVOURITE PIPELINES'),
                             ],
                           ),
-                        );                       
-                      },
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Color(0xff7ed7c1).withOpacity(0.2),
+                            child: TabBarView(
+                              children: [
+                                Apptheme().pieline(context: context,pipelineData:pipelineData),
+                                Apptheme().pieline(context: context,pipelineData:favourites),
+                              ],
+                            ),
+                          )
+                        ),
+                      ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
