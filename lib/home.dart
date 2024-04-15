@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
               onTap: () async {
                 try {
                   await FirebaseAuth.instance.signOut();
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
                 } catch (e) {
                   print("Error signing out: $e");
                 }

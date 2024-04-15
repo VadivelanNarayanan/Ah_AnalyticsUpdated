@@ -1,5 +1,6 @@
 import 'package:ah_analytics/home.dart';
 import 'package:ah_analytics/login.dart'; // Import your login page
+import 'package:ah_analytics/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return MaterialApp(
-        home: Home(),
-      );
-    } else {
-      return MaterialApp(
-        home: Login(),
-      );
-    }
+    return MaterialApp(
+      home: SplashScreen(),
+    );
+    // if (FirebaseAuth.instance.currentUser != null) {
+      // return MaterialApp(
+      //   home: Home(),
+      // );
+    // } else {
+    //   return MaterialApp(
+    //     home: Login(),
+    //   );
+    // }
   }
 }
