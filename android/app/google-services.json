@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "826673770549",
-    "project_id": "ah-analytics-production",
-    "storage_bucket": "ah-analytics-production.appspot.com"
+    "project_number": "514154554859",
+    "project_id": "ah-analytics-testing",
+    "storage_bucket": "ah-analytics-testing.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:826673770549:android:711a9d2b9e57eb113c817c",
+        "mobilesdk_app_id": "1:514154554859:android:3ac6d16789b45d1d90e5ae",
         "android_client_info": {
           "package_name": "com.example.ah_analytics"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBQWBag-pWtPeqxSmUbuIzY3XwKhexDd_g"
+          "current_key": "AIzaSyDBL1eb4LVyuQbAgrzwwnHO_t_XsfgV3Kk"
         }
       ],
       "services": {

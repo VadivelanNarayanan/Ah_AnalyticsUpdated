@@ -1,10 +1,13 @@
+import 'package:ah_analytics/appservice.dart';
 import 'package:ah_analytics/cancellation.dart';
 import 'package:ah_analytics/enach&onboarding.dart';
 import 'package:ah_analytics/login.dart';
 import 'package:ah_analytics/pipeline.dart';
 import 'package:ah_analytics/revenue.dart';
 import 'package:ah_analytics/sales.dart';
+import 'package:ah_analytics/salesvalue.dart';
 import 'package:ah_analytics/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -20,13 +23,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
+  AppService appService = AppService();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   DateTime _selectedDate = DateTime.now();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  Map loginprofile={};
+  
   @override
   void initState() {
     super.initState();
     _selectedDate = DateTime.now();
+    firestore.collection("user_data").where("profileid",isEqualTo:auth.currentUser?.uid).snapshots().listen((value) {
+      setState(() {
+        loginprofile=value.docs[0].data();
+        print("profileid${loginprofile}");
+      });
+      if(mounted){
+            appService.loggedinProfile = { 
+          ...loginprofile
+        };
+      }
+      
+    });
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -123,7 +145,12 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.fromLTRB(20,10,8,10 ),
               child: Image.asset("assets/logo/logo.jpg",),
             ),
-            Text("data"),
+            Text(
+               appService.loggedinProfile["name"] ?? "N/A",
+              style: TextStyle(
+                fontSize: 20
+              ),
+            ),
             Expanded(
               child: SizedBox(),
             ),
@@ -152,7 +179,7 @@ class _HomeState extends State<Home> {
         Container(
           height: MediaQuery.of(context).size.height, 
           child: DefaultTabController(
-            length: 5,
+            length: 6,
             child: Column(
               children: [
                 Container(
@@ -169,6 +196,7 @@ class _HomeState extends State<Home> {
                       Tab(text: 'SALES'),
                       Tab(text: 'OPPORTUNITY'),
                       Tab(text: 'REVENUE'),
+                       Tab(text: 'SALES VALUE'),
                       Tab(text: 'CANCELLATION'),
                     ],
                   ),
@@ -183,7 +211,9 @@ class _HomeState extends State<Home> {
                         Center(child: Sales(selectedDate: selectedDate)),
                         Center(child:Pipeline(selectedDate: selectedDate  )),
                         Center(child: Revenue(selectedDate: selectedDate)),
+                        Center(child: SalesValue(selectedDate: selectedDate),),
                         Center(child:cancellation(selectedDate: selectedDate)),
+                    
                       ],
                     ),
                   )

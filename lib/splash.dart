@@ -1,9 +1,9 @@
-// import 'package:eiflix/firebaseAuth.dart';
+
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:ah_analytics/home.dart';
 import 'package:ah_analytics/login.dart';
-import 'package:ah_analytics/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -28,7 +29,14 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _animationController,
       curve: Curves.easeIn,
     ));
+    
+    playSound();
     _animationController.forward().whenComplete(navigateToNextScreen);
+  }
+
+  playSound() async {
+    String audiopath = 'audio/intro.mp3';
+    await _audioPlayer.play(AssetSource(audiopath));
   }
 
   navigateToNextScreen() async {
@@ -37,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen>
       if (FirebaseAuth.instance.currentUser != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  Home()),
+          MaterialPageRoute(builder: (context) => Home()),
         );
-        } else {
+      } else {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  Login()),
+          MaterialPageRoute(builder: (context) => Login()),
         );
       }
     }
@@ -51,6 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     _animationController.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 

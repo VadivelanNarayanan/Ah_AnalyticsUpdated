@@ -1,7 +1,4 @@
-import 'package:ah_analytics/home.dart';
-import 'package:ah_analytics/login.dart'; // Import your login page
 import 'package:ah_analytics/splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';

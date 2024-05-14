@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBwLSAqklcotrhc3DMjvcUb3E8zoFoZNB0',
-    appId: '1:826673770549:web:4733c2af4bb993b63c817c',
-    messagingSenderId: '826673770549',
-    projectId: 'ah-analytics-production',
-    authDomain: 'ah-analytics-production.firebaseapp.com',
-    storageBucket: 'ah-analytics-production.appspot.com',
-    measurementId: 'G-TNRVET9ZLB',
+    apiKey: 'AIzaSyBlI4jJ50pY0Nx68evUXKe1ybsadhZbiS4',
+    appId: '1:514154554859:web:a7ccb43de961628890e5ae',
+    messagingSenderId: '514154554859',
+    projectId: 'ah-analytics-testing',
+    authDomain: 'ah-analytics-testing.firebaseapp.com',
+    storageBucket: 'ah-analytics-testing.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBQWBag-pWtPeqxSmUbuIzY3XwKhexDd_g',
-    appId: '1:826673770549:android:711a9d2b9e57eb113c817c',
-    messagingSenderId: '826673770549',
-    projectId: 'ah-analytics-production',
-    storageBucket: 'ah-analytics-production.appspot.com',
+    apiKey: 'AIzaSyDBL1eb4LVyuQbAgrzwwnHO_t_XsfgV3Kk',
+    appId: '1:514154554859:android:3ac6d16789b45d1d90e5ae',
+    messagingSenderId: '514154554859',
+    projectId: 'ah-analytics-testing',
+    storageBucket: 'ah-analytics-testing.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnDG49QZyh4-MtpPUx5FHzh3HcPHBjsK0',
-    appId: '1:826673770549:ios:dbf27db7137433c83c817c',
-    messagingSenderId: '826673770549',
-    projectId: 'ah-analytics-production',
-    storageBucket: 'ah-analytics-production.appspot.com',
+    apiKey: 'AIzaSyCXJjxjyXtk-b0LGvOEXBsmqUzRggbyg74',
+    appId: '1:514154554859:ios:f0a392a154030d8c90e5ae',
+    messagingSenderId: '514154554859',
+    projectId: 'ah-analytics-testing',
+    storageBucket: 'ah-analytics-testing.appspot.com',
     iosBundleId: 'com.example.ahAnalytics',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCnDG49QZyh4-MtpPUx5FHzh3HcPHBjsK0',
-    appId: '1:826673770549:ios:dbf27db7137433c83c817c',
-    messagingSenderId: '826673770549',
-    projectId: 'ah-analytics-production',
-    storageBucket: 'ah-analytics-production.appspot.com',
+    apiKey: 'AIzaSyCXJjxjyXtk-b0LGvOEXBsmqUzRggbyg74',
+    appId: '1:514154554859:ios:f0a392a154030d8c90e5ae',
+    messagingSenderId: '514154554859',
+    projectId: 'ah-analytics-testing',
+    storageBucket: 'ah-analytics-testing.appspot.com',
     iosBundleId: 'com.example.ahAnalytics',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBlI4jJ50pY0Nx68evUXKe1ybsadhZbiS4',
+    appId: '1:514154554859:web:c39911b389db7d7990e5ae',
+    messagingSenderId: '514154554859',
+    projectId: 'ah-analytics-testing',
+    authDomain: 'ah-analytics-testing.firebaseapp.com',
+    storageBucket: 'ah-analytics-testing.appspot.com',
+  );
+
 }
